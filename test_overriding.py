@@ -1,10 +1,38 @@
+import dataclasses
 import unittest.mock
 
 import pytest
-from dependency_injector import providers
+from dependency_injector import containers, providers
 
-from app.classes import ApiClient, ApiClientStub, Service
-from app.containers import Container
+
+# Classes
+########################################################################################
+
+
+class ApiClient:
+    pass
+
+
+class ApiClientStub(ApiClient):
+    pass
+
+
+@dataclasses.dataclass
+class Service:
+    api_client: ApiClient
+
+
+# Containers
+########################################################################################
+
+
+class Container(containers.DeclarativeContainer):
+    api_client_factory = providers.Factory(ApiClient)
+    service_factory = providers.Factory(Service, api_client=api_client_factory)
+
+
+# Tests
+########################################################################################
 
 
 @pytest.fixture(scope="function")
