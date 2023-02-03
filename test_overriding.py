@@ -29,6 +29,7 @@ def test_override(container: Container):
 def test_override_context_manager(container: Container):
     """
     API Clientをモックオブジェクトと差し替えるためにProvider.override()メソッドをコンテキストマネージャーとして使う
+    withブロックを抜けると自動で上書き前の状態に戻る
     """
     with container.api_client_factory.override(unittest.mock.Mock(ApiClient)):
         service1 = container.service_factory()
