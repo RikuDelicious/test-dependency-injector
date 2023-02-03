@@ -1,8 +1,10 @@
-from app.containers import Container
-import pytest
-from app.classes import ApiClient, ApiClientStub, Service
-from dependency_injector import providers
 import unittest.mock
+
+import pytest
+from dependency_injector import providers
+
+from app.classes import ApiClient, ApiClientStub, Service
+from app.containers import Container
 
 
 @pytest.fixture(scope="function")
